@@ -4,8 +4,12 @@ import axios from 'axios';
 import DashboardNavbar from "@/components/admin/DashboardNavbar";
 import Header from "@/components/admin/items/Header";
 
-const Items = () => {
-    const [showItemType, setShowItemType] = useState(0);
+const Items: any = () => {
+    const [showItemType, setShowItemType] = useState('showItem');
+
+    useEffect(() => {
+        console.log(showItemType);
+    }, [showItemType])
 
     return(
         <div className={`w-full flex items-center justify-center overflow-x-hidden`}>

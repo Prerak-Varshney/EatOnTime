@@ -2,11 +2,11 @@
 import { useState } from 'react';
 import DashboardNavbar from "@/components/admin/DashboardNavbar";
 
-const Header = ({itemDisplayType, setItemDisplayType}) => {
+const Header: any = ({itemDisplayType, setItemDisplayType}: any) => {
     const [showItemType, setShowItemType] = useState(0);
-    function handleChangeItemType(index: number){
+    function handleChangeItemType(index: number): void{
         setShowItemType(index)
-        setItemDisplayType(index);
+        setItemDisplayType(index === 1 ? "createItem" : "showItem");
     }
     return(
         <div className={`w-full h-20 flex items-center justify-center border-b border-b-neutral-300`}>
@@ -15,7 +15,7 @@ const Header = ({itemDisplayType, setItemDisplayType}) => {
                     <button
                         key={index}
                         className={`min-w-40 w-1/2 h-full  border-r border-r-neutral-300 hover:bg-neutral-300 transition-all duration-300 ${showItemType === index ? 'bg-neutral-300' : ''}`}
-                        onClick={() => setItemDisplayType(index)}
+                        onClick={() => handleChangeItemType(index)}
                     >
                         <span className={`text-base font-medium`}>{item}</span>
                     </button>
