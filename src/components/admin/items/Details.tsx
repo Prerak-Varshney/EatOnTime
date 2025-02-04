@@ -6,16 +6,17 @@ interface DetailsProps {
     type?: string;
     dropdownItems?: string[];
     inputType?: string;
-    itemValue: string | number;
+    itemValue: any | any[];
     setItemValue: (value: any) => void;
+    length?: number;
 }
-const Details = ({ label, placeholder, inputType="text", type="input", dropdownItems, itemValue, setItemValue }: DetailsProps) => {
+const Details = ({ label, placeholder, inputType="text", type="input", dropdownItems, itemValue, setItemValue, length = 1 }: DetailsProps) => {
     return(
         <div className={`w-full h-20 pl-10 gap-2 flex items-center justify-start`}>
             <h1 className={`md:text-base text-wrap text-sm`}>{label}</h1>
             {
                 type === "dropdown" ?
-                    <Dropdown items={dropdownItems ? dropdownItems : []}/>
+                    <Dropdown items={dropdownItems ? dropdownItems : []} itemValue={itemValue} setItemValue={setItemValue} length={length}/>
                 :
                 <input
                     type={inputType}

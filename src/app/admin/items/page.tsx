@@ -20,17 +20,13 @@ const Items: any = () => {
 
     const [productName, setProductName] = useState('');
     const [productDescription, setProductDescription] = useState('');
-    const [productType, setProductType] = useState('');
+    const [productType, setProductType] = useState([]);
     const [productCategoriesName, setProductCategoriesName] = useState([]);
-    const [productStock, setProductStock] = useState(true);
-    const [productRecommended, setProductRecommended] = useState(true);
+    const [productStock, setProductStock] = useState([]);
+    const [productRecommended, setProductRecommended] = useState([]);
     const [productPrice, setProductPrice] = useState(0);
     const [productDiscount, setProductDiscount] = useState(0);
     const [productFinalPrice, setProductFinalPrice] = useState(0);
-
-    useEffect(() => {
-        console.log(showItemType);
-    }, [showItemType])
 
     useEffect(() => {
         setProductFinalPrice(productPrice - (productPrice * productDiscount / 100));
@@ -63,10 +59,10 @@ const Items: any = () => {
                                 <Details label={"Name:"} placeholder={"Rajma Chawal"} itemValue={productName} setItemValue={setProductName} />
                                 <Details label={"Description:"} placeholder={"Spicy and Delicious"} itemValue={productDescription} setItemValue={setProductDescription} />
 
-                                <Details label={"Type:"} type={'dropdown'} dropdownItems={["Veg", "Non-Veg"]} />
-                                <Details label={"Categories:"} type={'dropdown'} dropdownItems={productCategories} />
-                                <Details label={"Stock:"} type={'dropdown'} dropdownItems={['Yes', "No"]} />
-                                <Details label={"Recommended:"} type={'dropdown'} dropdownItems={['Yes', "No"]} />
+                                <Details label={"Type:"} type={'dropdown'} dropdownItems={["Veg", "Non-Veg"]} itemValue={productType} setItemValue={setProductType} />
+                                <Details label={"Categories:"} type={'dropdown'} dropdownItems={productCategories} itemValue={productCategoriesName} setItemValue={setProductCategoriesName} length={3} />
+                                <Details label={"Stock:"} type={'dropdown'} dropdownItems={['Yes', "No"]} itemValue={productStock} setItemValue={setProductStock}/>
+                                <Details label={"Recommended:"} type={'dropdown'} dropdownItems={['Yes', "No"]} itemValue={productRecommended} setItemValue={setProductRecommended}/>
 
                                 <Details label={"Price:"} inputType={"number"} placeholder={"₹100"} itemValue={productPrice} setItemValue={setProductPrice} />
                                 <Details label={"Discount:"} inputType={"number"} placeholder={"20%"} itemValue={productDiscount} setItemValue={setProductDiscount} />

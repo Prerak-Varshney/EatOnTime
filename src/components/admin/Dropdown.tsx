@@ -5,7 +5,7 @@ import {ChevronDown} from "lucide-react";
 interface DropDownProps {
     items: string[];
     itemValue: string[];
-    setItemValue: (value: string) => void;
+    setItemValue: (value: string[]) => void;
     length?: number;
 }
 
@@ -13,9 +13,7 @@ const DropDown = ({ items, itemValue, setItemValue, length = 1 }: DropDownProps)
 
     const [itemsList, setItemsList] = useState(items);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(itemsList[0]);
-
-    const [selectedItemValue, setSelectedItemValue] = useState([]);
+    const [selectedItem, setSelectedItem] = useState('Choose');
 
     useEffect(() => {
 
@@ -28,6 +26,15 @@ const DropDown = ({ items, itemValue, setItemValue, length = 1 }: DropDownProps)
     function handleDropdownItemClicked(item: string): void{
         setSelectedItem(item);
         setIsDropdownOpen(false);
+        if(length === 1){
+            setItemValue([item]);
+            return;
+        }
+
+        let temp: string[] = itemValue ? itemValue : [];
+        temp.push(item);
+
+        setItemValue(temp);
     }
 
     return(
