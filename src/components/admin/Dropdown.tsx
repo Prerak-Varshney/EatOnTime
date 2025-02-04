@@ -6,18 +6,14 @@ interface DropDownProps {
     items: string[];
     itemValue: string[];
     setItemValue: (value: string[]) => void;
-    length?: number;
+    dropdownType?: "single" | "multiple";
 }
 
-const DropDown = ({ items, itemValue, setItemValue, length = 1 }: DropDownProps) => {
+const DropDown = ({ items, itemValue, setItemValue, dropdownType = "single" }: DropDownProps) => {
 
     const [itemsList, setItemsList] = useState(items);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState('Choose');
-
-    useEffect(() => {
-
-    }, [itemsList])
 
     function handleDropdownButtonClicked(): void{
         setIsDropdownOpen((prev: boolean): boolean => !prev);
@@ -26,15 +22,17 @@ const DropDown = ({ items, itemValue, setItemValue, length = 1 }: DropDownProps)
     function handleDropdownItemClicked(item: string): void{
         setSelectedItem(item);
         setIsDropdownOpen(false);
-        if(length === 1){
+        if(dropdownType == "single"){
             setItemValue([item]);
-            return;
+        }else{
+
         }
 
-        let temp: string[] = itemValue ? itemValue : [];
+        let temp: string[] = itemValue.length > 0 ? [...itemValue] : [];
         temp.push(item);
-
         setItemValue(temp);
+
+        return;
     }
 
     return(

@@ -11,6 +11,7 @@ import productCategories from "@/Constants/productCategories";
 
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
+import {X} from "lucide-react";
 
 
 const Items: any = () => {
@@ -60,7 +61,31 @@ const Items: any = () => {
                                 <Details label={"Description:"} placeholder={"Spicy and Delicious"} itemValue={productDescription} setItemValue={setProductDescription} />
 
                                 <Details label={"Type:"} type={'dropdown'} dropdownItems={["Veg", "Non-Veg"]} itemValue={productType} setItemValue={setProductType} />
-                                <Details label={"Categories:"} type={'dropdown'} dropdownItems={productCategories} itemValue={productCategoriesName} setItemValue={setProductCategoriesName} length={3} />
+                                <Details label={"Categories:"} type={'dropdown'} dropdownItems={productCategories} itemValue={productCategoriesName} setItemValue={setProductCategoriesName} dropdownType={"single"} />
+
+                                {
+                                    productCategoriesName.length > 0 &&
+                                    <div className={`w-[30rem] min-h-20 pl-10 gap-2 flex flex-wrap items-center justify-start font-semibold`}>
+                                        {
+                                            productCategoriesName.map((item: string, index: number) =>
+                                                <div key={index} className={`bg-slate-900 text-white px-2 py-1 rounded-lg relative`}>
+                                                    <span>{item}</span>
+                                                    <div
+                                                        className={`absolute -top-1 -right-1 cursor-pointer rounded-full w-3 h-3 bg-black flex items-center justify-center`}
+                                                        onClick={() => {
+                                                            let temp: string[] = [...productCategoriesName];
+                                                            temp.splice(index, 1);
+                                                            setProductCategoriesName(temp);
+                                                        }}
+                                                    >
+                                                        <X size={16} strokeWidth={3} />
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                }
+
                                 <Details label={"Stock:"} type={'dropdown'} dropdownItems={['Yes', "No"]} itemValue={productStock} setItemValue={setProductStock}/>
                                 <Details label={"Recommended:"} type={'dropdown'} dropdownItems={['Yes', "No"]} itemValue={productRecommended} setItemValue={setProductRecommended}/>
 

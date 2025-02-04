@@ -3,20 +3,20 @@ import Dropdown from "@/components/admin/Dropdown";
 interface DetailsProps {
     label: string;
     placeholder?: string;
-    type?: string;
+    type?: "input" | "dropdown";
     dropdownItems?: string[];
     inputType?: string;
     itemValue: any | any[];
     setItemValue: (value: any) => void;
-    length?: number;
+    dropdownType?: "single" | "multiple";
 }
-const Details = ({ label, placeholder, inputType="text", type="input", dropdownItems, itemValue, setItemValue, length = 1 }: DetailsProps) => {
+const Details = ({ label, placeholder, inputType="text", type="input", dropdownItems, itemValue, setItemValue, dropdownType = "single" }: DetailsProps) => {
     return(
         <div className={`w-full h-20 pl-10 gap-2 flex items-center justify-start`}>
             <h1 className={`md:text-base text-wrap text-sm`}>{label}</h1>
             {
                 type === "dropdown" ?
-                    <Dropdown items={dropdownItems ? dropdownItems : []} itemValue={itemValue} setItemValue={setItemValue} length={length}/>
+                    <Dropdown items={dropdownItems ? dropdownItems : []} itemValue={itemValue} setItemValue={setItemValue} dropdownType={dropdownType}/>
                 :
                 <input
                     type={inputType}
