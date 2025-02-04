@@ -39,12 +39,19 @@ const DropDown = ({ items, itemValue, setItemValue, length = 1 }: DropDownProps)
                 <span>{selectedItem}</span>
                 <ChevronDown size={20} />
             </div>
-            <div className={`w-full absolute flex flex-col items-center justify-start rounded-lg bg-slate-200 transition-all duration-300 z-10 mt-1  ${isDropdownOpen ? `h-${itemsList.length * 10}` : 'h-0'}`}>
+            <div className={
+                `w-full absolute flex flex-col items-center justify-start rounded-lg max-h-80 overflow-y-scroll bg-slate-200 transition-all duration-300 z-10 mt-1  
+                ${isDropdownOpen ? `h-auto` : 'h-0'}`
+            }>
                 {
                     itemsList.map((item: string, index: number) =>
                         <div
                             key={index}
-                            className={`w-full items-center flex justify-center hover:bg-slate-300 transition-all duration-300 ${isDropdownOpen ? 'h-10 border-b border-b-slate-300' : 'h-0'} ${index === 0 ? 'rounded-t-lg' : index === itemsList.length - 1 ? 'rounded-b-lg border-b-transparent' : ''}`}
+                            className={
+                                `w-full items-center flex justify-center hover:bg-slate-300 transition-all duration-300 
+                                ${isDropdownOpen ? 'min-h-10 border-b border-b-slate-300' : 'h-0'} 
+                                ${index === 0 ? 'rounded-t-lg' : index === itemsList.length - 1 ? 'rounded-b-lg border-b-transparent' : ''}`
+                            }
                             onClick={() => handleDropdownItemClicked(item)}
                         >
                             <span className={`${isDropdownOpen ? 'flex' : 'hidden'}`}>{item}</span>
