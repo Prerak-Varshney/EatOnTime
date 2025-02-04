@@ -1,23 +1,91 @@
 "use client";
+
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import DashboardNavbar from "@/components/admin/DashboardNavbar";
 import Header from "@/components/admin/items/Header";
+import ItemCategory from "@/components/admin/items/ItemCategory";
+import Details from "@/components/admin/items/Details";
+import productCategories from "@/Constants/productCategories";
+
+import { usePathname } from "next/navigation";
+import Link from 'next/link';
+
 
 const Items: any = () => {
+    const pathName = usePathname();
+
     const [showItemType, setShowItemType] = useState('showItem');
+
+    const [productName, setProductName] = useState('');
+    const [productDescription, setProductDescription] = useState('');
+    const [productType, setProductType] = useState('');
+    const [productCategoriesName, setProductCategoriesName] = useState([]);
+    const [productStock, setProductStock] = useState(true);
+    const [productRecommended, setProductRecommended] = useState(true);
+    const [productPrice, setProductPrice] = useState(0);
+    const [productDiscount, setProductDiscount] = useState(0);
+    const [productFinalPrice, setProductFinalPrice] = useState(0);
 
     useEffect(() => {
         console.log(showItemType);
     }, [showItemType])
 
+    useEffect(() => {
+        setProductFinalPrice(productPrice - (productPrice * productDiscount / 100));
+    }, [productPrice, productDiscount])
+
+    function handleSubmit() {
+        console.log(productName, productDescription, productType, productCategoriesName, productStock, productRecommended, productPrice, productDiscount, productFinalPrice);
+    }
+
     return(
-        <div className={`w-full flex items-center justify-center overflow-x-hidden`}>
-            <div className={`w-20 md:w-80`}>
+        <div className={`w-full flex items-center justify-center`}>
+            <div className={`w-20 lg:w-80`}>
                 <DashboardNavbar />
             </div>
             <div className={`flex-1 min-h-screen`}>
-                <Header itemDisplayType={showItemType} setItemDisplayType={setShowItemType} />
+                <div className={`w-full h-20`}>
+                    <Header itemDisplayType={showItemType} setItemDisplayType={setShowItemType}/>
+                </div>
+                {
+                    showItemType === 'showItem' ?
+                    (
+                        <div className={`w-full h-[calc(100vh-5rem)] flex items-center justify-evenly`}>
+
+                        </div>
+                    )
+                    :
+                    (
+                        <div className={`w-full min-h-[calc(100vh-5rem)] overflow-x-hidden overflow-y-scroll`}>
+                            <div className={`w-full h-[calc(100vh-5rem)] flex flex-col items-left justify-start text-black`}>
+                                <Details label={"Name:"} placeholder={"Rajma Chawal"} itemValue={productName} setItemValue={setProductName} />
+                                <Details label={"Description:"} placeholder={"Spicy and Delicious"} itemValue={productDescription} setItemValue={setProductDescription} />
+
+                                <Details label={"Type:"} type={'dropdown'} dropdownItems={["Veg", "Non-Veg"]} />
+                                <Details label={"Categories:"} type={'dropdown'} dropdownItems={productCategories} />
+                                <Details label={"Stock:"} type={'dropdown'} dropdownItems={['Yes', "No"]} />
+                                <Details label={"Recommended:"} type={'dropdown'} dropdownItems={['Yes', "No"]} />
+
+                                <Details label={"Price:"} inputType={"number"} placeholder={"₹100"} itemValue={productPrice} setItemValue={setProductPrice} />
+                                <Details label={"Discount:"} inputType={"number"} placeholder={"20%"} itemValue={productDiscount} setItemValue={setProductDiscount} />
+
+                                <div className={`w-full h-20 pl-10 gap-2 flex items-center justify-start font-semibold`}>
+                                    <span>Final Price:</span>
+                                    <span>₹{productFinalPrice}</span>
+                                </div>
+
+                                <button
+                                    className={`w-96 h-10 bg-slate-900 hover:bg-slate-800 rounded-xl self-center text-white transition-all duration-300`}
+                                    onClick={handleSubmit}
+                                >
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
         </div>
     )

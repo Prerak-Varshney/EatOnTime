@@ -9,7 +9,7 @@ const Header: any = ({itemDisplayType, setItemDisplayType}: any) => {
         setItemDisplayType(index === 1 ? "createItem" : "showItem");
     }
     return(
-        <div className={`w-full h-20 flex items-center justify-center border-b border-b-neutral-300`}>
+        <div className={`w-full h-full flex items-center justify-center border-b border-b-neutral-300`}>
             {
                 ["All Items", "Create Items"].map((item: string, index: number) =>
                     <button
