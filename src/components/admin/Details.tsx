@@ -9,8 +9,9 @@ interface DetailsProps {
     itemValue: any | any[];
     setItemValue: (value: any) => void;
     dropdownType?: "single" | "multiple";
+    isInputDisabled?: boolean;
 }
-const Details = ({ label, placeholder, inputType="text", type="input", dropdownItems, itemValue, setItemValue, dropdownType = "single" }: DetailsProps) => {
+const Details = ({ label, placeholder, inputType="text", type="input", dropdownItems, itemValue, setItemValue, dropdownType = "single", isInputDisabled=false }: DetailsProps) => {
     return(
         <div className={`w-full h-20 pl-10 gap-2 flex items-center justify-start`}>
             <h1 className={`md:text-base text-wrap text-sm`}>{label}</h1>
@@ -21,9 +22,10 @@ const Details = ({ label, placeholder, inputType="text", type="input", dropdownI
                 <input
                     type={inputType}
                     placeholder={placeholder}
-                    className={`w-80 h-8 md:w-96 md:h-10 px-2 outline-none bg-transparent border-b border-b-slate-300 `}
+                    className={`min-w-60 h-8 w-80 md:w-96 md:h-10 px-2 outline-none bg-transparent border-b border-b-slate-300 `}
                     value={itemValue}
                     onChange={(e) => setItemValue(e.target.value)}
+                    disabled={isInputDisabled}
                 />
             }
 
