@@ -9,7 +9,7 @@ import { useState } from "react";
 
 import Details from "@/components/admin/Details";
 import IndianStatesAndUTs from "@/Constants/IndianStateList";
-import AuthNavbar from "@/components/admin/auth/AuthNavbar";
+import AuthNavbar from "@/components/auth/AuthNavbar";
 
 const Auth = () => {
     const [restaurantName, setRestaurantName] = useState<string>("");
