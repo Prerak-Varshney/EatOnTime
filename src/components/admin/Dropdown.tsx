@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {ChevronDown} from "lucide-react";
 
 interface DropDownProps {
@@ -13,7 +13,7 @@ const DropDown = ({ items, itemValue, setItemValue, dropdownType = "single" }: D
 
     const [itemsList, setItemsList] = useState(items);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState('Choose');
+    const [selectedItem, setSelectedItem] = useState(itemValue.length === 0 && 'Choose');
 
     function handleDropdownButtonClicked(): void{
         setIsDropdownOpen((prev: boolean): boolean => !prev);
@@ -24,19 +24,18 @@ const DropDown = ({ items, itemValue, setItemValue, dropdownType = "single" }: D
         setIsDropdownOpen(false);
         if(dropdownType == "single"){
             setItemValue([item]);
-        }else{
-
         }
 
         let temp: string[] = itemValue.length > 0 ? [...itemValue] : [];
-        temp.push(item);
+        if(!temp.includes(item)){
+            temp.push(item);
+        }
         setItemValue(temp);
-
         return;
     }
 
     return(
-        <div className={`w-60 relative`}>
+        <div className={`min-w-40 md:w-60 w-40 relative`}>
             <div
                 className={`w-full h-10 bg-slate-300 hover:bg-gray-300 transition-all duration-300  rounded-lg flex items-center justify-between px-4`}
                 onClick={handleDropdownButtonClicked}
@@ -53,7 +52,7 @@ const DropDown = ({ items, itemValue, setItemValue, dropdownType = "single" }: D
                         <div
                             key={index}
                             className={
-                                `w-full items-center flex justify-center hover:bg-slate-300 transition-all duration-300 
+                                `w-full items-center flex justify-center text-center hover:bg-slate-300 transition-all duration-300 
                                 ${isDropdownOpen ? 'min-h-10 border-b border-b-slate-300' : 'h-0'} 
                                 ${index === 0 ? 'rounded-t-lg' : index === itemsList.length - 1 ? 'rounded-b-lg border-b-transparent' : ''}`
                             }
